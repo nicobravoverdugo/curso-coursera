@@ -12,9 +12,9 @@ class Producto
         self.precio = precio
     }
     
-    func calcularPrecioDeDescuento( porcentajeDeDescuento : Double)
+    func calcularPrecioDeDescuento( porcentajeDeDescuento : Double) -> Double
     {
-        precio = precio - (precio * porcentajeDeDescuento/100)
+        return precio - (precio * porcentajeDeDescuento/100)
     }
 }
 /*
@@ -42,10 +42,35 @@ enum Seccion
 class Libro : Producto
 {
     var seccion = Seccion()
+    var añoDePublicacion : Int = 0
+    
+    init(marca : String, precio : Double, añoDePublicacion : Int)
+    {
+        super.init(marca: marca,precio: precio)
+        self.añoDePublicacion = añoDePublicacion
+    }
+    
+    convenience init(marca: String)
+    {
+        self.init(marca: marca, precio: 0.0, añoDePublicacion: 2001)
+    }
+    
+    override func calcularPrecioDeDescuento(porcentajeDeDescuento: Double) -> Double {
+        return super.calcularPrecioDeDescuento(porcentajeDeDescuento: porcentajeDeDescuento)
+    }
 }
 
-var libro = Libro(marca: "MG", precio: 190.50)
+var libro = Libro(marca: "MG", precio: 190.50, añoDePublicacion: 1990)
+
+var nuevoLibro = Libro(marca: "BB")
+nuevoLibro.precio
+nuevoLibro.añoDePublicacion
+
 
 libro.marca
 libro.precio
 libro.seccion
+libro.calcularPrecioDeDescuento(porcentajeDeDescuento: 20)
+libro.precio
+libro.añoDePublicacion
+
